@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacuna</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <img src="img/LOGO.png" alt="Logo de una vacuna sobre una representacion de covid">
+        <div class="line"></div>
+    </header>
+    <nav>
+        <ul>
+            <a href="index.html"><li>Inicio</li></a>
+            <a href="mapas.html"><li>Mapas</li></a>
+            <a href="umeses.html"><li>Últimos meses</li></a>
+            <a href="conclusion.html"><li>Conclusión</li></a>
+            <a href="codigo.html" class="isSelected"><li>Código</li></a>
+        </ul>
+    </nav>
+    <section class="lBlue">
+        <p>
+            <span class="morado">from</span> google.colab <span class="morado">import</span> files<br>
+            uploaded = files.upload()<br><br>
+            <span class="morado">import</span> pandas <span class="morado">as</span> pd<br>
+            df = pd.read_csv(<span class="naranjo">'vacunacion_comuna_1eraDosis.csv'</span>)<br><br>
+            !pip install folium geocoder <br>
+            <span class="morado">import</span> folium<br>
+            <span class="morado">import</span> geocoder<br>
+            g=geocoder.osm(<span class="naranjo">'Chile'</span>)<br>
+            mymap=folium.Map()<br>
+            g.latlng<br>
+            gcs = [geocoder.osm, geocoder.google, geocoder.arcgis, geocoder.mapbox, geocoder.baidu]<br>
+            results = <span class="azul">None</span> <br><br>
+            <span class="morado">for</span> g <span class="lazul">in</span> gcs:<br>
+            &nbsp &nbsp results = g(<span class="naranjo">'Chile'</span>)<br>
+            &nbsp &nbsp <span class="morado">if</span> results:<br>
+            &nbsp &nbsp &nbsp &nbsp <span class="morado">break</span><br><br>
+            
+
+            <span class="azul">def</span> <span class="amarillo">get_geocode</span>(<span class="lazul">txt</span>):<br>
+            gcs = [geocoder.osm, geocoder.google, geocoder.arcgis, geocoder.mapbox, geocoder.baidu]<br>
+            results = <span class="azul">None</span><br>
+            <span class="morado">for</span> g <span class="lazul">in</span> gcs:<br>
+            &nbsp &nbsp    results = g(txt)<br>
+            &nbsp &nbsp <span class="morado">if</span> results:<br>
+            &nbsp &nbsp &nbsp &nbsp <span class="morado">break</span><br>
+            return(results)<br><br>
+            df=df.dropna()<br>
+            df2=df.dropna()<br>
+            df2=df2.drop(columns=[<span class="naranjo">'Codigo region','Codigo comuna','Poblacion','Region','Comuna'</span>])<br>
+            df2.columns = pd.to_datetime(df2.columns)<br>
+            df2 = df2.groupby(pd.PeriodIndex(df2.columns,freq=<span class="naranjo">'M'</span>), axis=1).sum()<br>
+            df2.insert(0,<span class="naranjo">'Comuna'</span>,df[<span class="naranjo">'Comuna'</span>].tolist())<br><br>
+
+            from functools <span class="morado">import</span> lru_cache<br>
+            <span class="amarillo">@lru_cache(maxsize=512)</span><br>
+            <span class="azul">def</span> <span class="amarillo">geocode_comuna</span>(<span class="lazul">nombre</span>):<br>
+            &nbsp &nbsp <span class="morado">return</span> geocoder.osm(nombre+<span class="naranjo">', Chile'</span>)<br><br>
+
+            maps = []<br>
+            i = 1<br>
+            <span class="morado">while</span> i < len(df2.columns):<br>
+            &nbsp &nbsptmp_map = folium.Map(location=geocoder.osm(<span class="naranjo">'Santiago, Chile'</span>).latlng, tiles=<span class="naranjo">'Stamen Toner'</span>, zoom_start=10)
+              &nbsp &nbsp  <span class="morado">for</span> index, row <span class="lazul">in</span> df2.iterrows(): <br>
+              &nbsp &nbsp<span class="morado">if</span> row[i] != 0 :<br>
+                &nbsp &nbsp &nbsp &nbsp &nbsp &nbspfolium.Circle(<br>
+                    &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp radius=row[i]/10,<br>
+                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp location=geocode_comuna(row.Comuna).latlng,<br>
+                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp popup=row.Comuna+' '+str(row[i]),<br>
+                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp color=<span class="naranjo">'Pink'</span>,<br>
+                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp fill=<span class="azul">True</span>,<br>
+                      &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp).add_to(tmp_map)<br>
+                    &nbsp &nbsp maps.append(tmp_map)<br>
+              &nbsp &nbsp  i = i+1<br>
+        </p>
+
+    </section>
+</body>
+</html>
