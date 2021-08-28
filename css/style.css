@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400&display=swap');
+*{
+    box-sizing: border-box;
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Open Sans', sans-serif;
+}
+/* HEADER */
+header{
+    position: relative;
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.line{
+    height: 2vh;
+    width: 100%;
+    background-color: #00A8E8;
+}
+header img{
+    position: absolute;
+    height: 85%;
+    width: auto;
+    z-index: 10;
+}
+
+/* NAVIGATION BAR */
+nav ul{
+    display: flex;
+    height: 5vh;
+    background-color: #007ea7;
+}
+li{
+    list-style: none;
+}
+a{
+    font-size: calc(0.8rem + 0.5vw);
+    text-decoration: none;
+    margin: auto;
+    color: #fff;
+}
+.isSelected{
+    color: #00171f
+}
+/* SECTION GENERAL*/
+section{
+    height: 75vh;
+    margin-top: 0px;
+    display:flex;
+    flex-direction: column;
+    
+    align-items: center;
+}
+.border{
+    margin:1rem;
+    background-color: #00A8E8;
+    padding:0.6rem;
+    
+}
+.bg{
+    height: 45vh;
+    width: 45vh; 
+    background: url("../img/foto1.png");
+    background-position: center;
+    background-size: cover;
+}
+section p{
+    margin: 1rem;
+    font-size: calc(0.8rem + 0.5vw);
+}
+/* SECCTION LBLUE Mapas*/
+.lBlue{
+    background-color: #D6EEFF;
+    height: auto;
+}
+/* SECCTION BLUE */
+.blue{
+    background-color: #00A8E8;
+}
+.pConclusion{
+    color: #fff;
+    font-size: 1.2rem;
+}
+/* Maps usado en Mapas y Ultimos meses*/
+.maps{
+    margin: 1rem;
+    height: 70vh;
+    width: 90vw;
+}
+.map0{
+    background: url(../img/mapimg0.png);
+}
+.map1{
+    background: url(../img/mapimg1.png);
+}
+.map2{
+    background: url(../img/mapimg2.png);
+}
+.map3{
+    background: url(../img/mapimg3.png);
+}
+.map4{
+    background: url(../img/mapimg4.png);
+}
+.map5{
+    background: url(../img/mapimg5.png);
+}
+.map6{
+    background: url(../img/mapimg6.png);
+}
+.map7{
+    background: url(../img/mapimg7.png);
+}
+/* COLORES PARA SECCION "CODIGO" */
+.morado{
+    color: rgb(255, 0, 85);
+}
+.naranjo{
+    color:rgb(255, 145, 0);
+}
+.azul{
+    color: rgb(8, 8, 251);
+}
+.lazul{
+    color: rgb(62, 62, 246)
+}
+.amarillo{
+    color: rgb(137, 139, 4);
+}
+@media (min-width: 1025px){
+    .bg{
+        height: calc(45vh + 10vw);
+        width: calc(45vh + 10vw);
+    }
+    .iSection{
+        flex-direction: row-reverse;
+    }
+    section p{
+        float: left;
+    }
+    .lblue{
+        flex-direction: column;
+    }
+
+}
